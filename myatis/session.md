@@ -23,3 +23,13 @@ mybaits配置项都在里面、大量的类型别名注册
 内部只有三个常量字段：分别为```sqlSessionFactory```、```sqlSessionProxy```、使用```ThreadLocal```储存会话的```localSqlSession```，很简单的通过组合模式实现了```SqlSession```接口和```SqlSessionFactory```接口。```sqlSessionProxy```是```SqlSession```的代理对象，内部私有类```SqlSessionInterceptor```是它的```InvocationHandler```。```SqlSessionInterceptor```的调用处理逻辑为：若```localSqlSession```中有储存着的会话，则直接调用它完成数据库调用，出现异常就直接抛出不做其它处理。反之，则通过```sqlSessionFactory```重新创建会话，完成数据库调用，无异常则提交事务、有异常则回滚，最后关闭会话。
 
 ### RowBounds
+用于逻辑分页
+
+### ResultContext
+结果上下文。
+
+### ResultHandler
+只有一个方法，方法参数为```ResultContext```，对结果进行处理。
+
+### LocalCacheScope
+一个枚举类，值分别为```SESSION```、```STATEMENT```表示两个缓存范围。
