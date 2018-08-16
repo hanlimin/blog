@@ -19,7 +19,7 @@ mybaits配置项都在里面、大量的类型别名注册
 为SqlSessionFactory提供构建器。可以指定配置文件输入流、环境信息、properties信息，内部通过```XMLConfigBuilder```生成```Configuration```，也可以直接指定```Configuration```。有了配置信息后，通过```DefaultSqlSessionFactory```建立会话工厂并返回。
 
 ### SqlSessionManager
-内部只有三个常量字段：分别为```sqlSessionFactory```、```sqlSessionProxy```、使用```ThreadLocal```储存会话的```localSqlSession```，很简单的通过组合模式实现了```SqlSession```接口和```SqlSessionFactory```接口。```sqlSessionProxy```是```SqlSession```的代理对象，内部私有类```SqlSessionInterceptor```是它的```InvocationHandler```。```SqlSessionInterceptor```的调用处理逻辑为：若```localSqlSession```中有储存着的会话，则直接调用它完成数据库调用，出现异常就直接抛出不做其它处理。反之，则通过```sqlSessionFactory```重新创建会话，完成数据库调用，无异常则提交事务、有异常则回滚，最后关闭会话。
+内部只有三个常量字段：分别为```sqlSessionFactory```、```sqlSessionProxy```、使用```ThreadLocal```储存会话的```localSqlSession```，很简单的通过组合模式实现了```SqlSession```接口和```SqlSessionFactory```接口。```sqlSessionProxy```是```SqlSession```的代理对象，内部私有类```SqlSessionInterceptor```是它的```InvocationHandler```。```SqlSessionInterceptor```的调用处理逻辑为：若```localSqlSession```中有储存着的会话，则直接调用它完成数据库调用，出现异常就直接抛出不做其它处理。反之，则通过```sqlSessionFactory```重新创建会话，完成数据库调用，无异常则提交事务、有异常则回滚，最后关闭会话。默认```localSqlSession```为空。
 
 ### RowBounds
 用于逻辑分页
