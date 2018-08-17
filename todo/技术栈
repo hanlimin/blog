@@ -1,0 +1,8 @@
+Web服务：Tengine&Tomcat&OpenResty
+缓存：Redis/Memcache
+队列：RocketMQ
+数据存储：Mysql/MongoDB/Hadoop/Cassandra/ElasticSearch
+大数据计算：JStorm/Hive/MapReduce/MaxCompute
+分布式锁：Zookeeper
+框架：Spring/Struts/Ibatis
+服务化：SpringCloud/SpringBoot
