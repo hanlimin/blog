@@ -14,6 +14,26 @@
 封装了ResultMapping和一个string-string的Map，还提供了一个构建器。
 ### Enviroment
 包含一个字符串id、TransactionFactory、DataSource，提供了一个构建器。
+### ParameterMap
+封装了3个属性，分别为一个字符串id、type、ParamterMapping列表，提供了一个构建器。
 ### ParameterMapping
 参数映射
 javaType、jdbcType、typeHandler，封装了java到jdbc的类型转化相关的几个元素。
+### ParameterMode
+枚举IN、OU、INOUT
+### ResultFlag
+枚举ID、CONSTRUCTOR
+### ResultMap
+结果映射
+### ResultMapping
+结果映射，与ParaameterMapping相似封装了javaType、jdbcType、typeHandler，提供了一个构建器。
+### ResultSetType
+封装了jdbc的ResultSet类型
+### SqlCommandTYpe
+sql命令枚举
+### SqlSource
+一个接口只有一个方法```getBoundSql```，指定参数对应获取BoundSql
+### StatementType
+一个Statement类型枚举
+### VendorDatabaseIdProvider
+实现了DatabaseIdProvider接口，默认返回数据库的产品名字。当指定了Properties，则用数据库产品名字作为key查询对应的值并返回，若没找到侧返回null。

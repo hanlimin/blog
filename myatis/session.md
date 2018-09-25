@@ -1,7 +1,17 @@
 # org.apache.ibaties.session
 
+### AutoMappingBehavior
+枚举定义了3种自动映射行为。
+-   NONE 不自动映射
+-   PARITAL 无嵌套的才映射
+-   FULL 都映射
+### AutoMappingUnknownColumnBehavior 
+枚举定义对未知列或未知属性的处理行为
+-   NONE 什么都不做
+-   WARNING 只打印warn日志
+-   FAILING 抛出SqlSessionExecption异常
 ### Congiguration
-mybaits配置项都在里面、大量的类型别名注册
+mybaits配置项都在里面、大量的类型别名注册。
 
 ### SqlSession
 一个接口定义了增删改查、游标查询事务、获取连接、配置信息、会话缓存、获取指定类的映射等方法。
