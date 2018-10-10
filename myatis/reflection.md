@@ -85,4 +85,5 @@ RefectoryFactory的一个实现，默认开启了缓存
 包含三个公共静态常量```DEFAULT_OBJECT_FACTORY```、```DEFAULT_OBJECT_WRAPPER_FACTORY```、```NULL_META_OBJEC```T和一个静态方法```forObejct```使用```DEFAULT_OBJECT_FACTORY```、```DEFAULT_OBJECT_WRAPPER_FACTORY```和新创建的DefaultReflectorFactory获取指定对象的```MeteObject```。
 
 ### TypeParameterResolver
-工具类，包含多个静态方法。解析字段类型、方法返回值类型、方法参数类型信息。
+工具类，包含多个静态方法。解析字段类型、方法返回值类型、方法参数类型信息。内部实现了ParameterizedType、WildcardType。
+
