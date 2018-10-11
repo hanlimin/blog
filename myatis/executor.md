@@ -1,7 +1,60 @@
 # org.apache.ibaties.executor
 
+
+### KeyGenerator
+就两个方法-processBefore、processAfter，不知道用作什么
+该接口有2个实现，分别为
+-   Jdbc3KeyGenerator
+    KeyGenerator一个实现，processBefore一个空方法什么也没做，
+-   SelectKeyGenerator
+-   NokeyGenerator
+
+### ProxyFactory
+有两个实现
+-   JavassistProxyFactory
+-   CglibProxyFactory
+
+### ResultLoader
+用来延迟加载的？
+
+### ResultLoaderMap
+用在代理中，具体待看
+
+### WriteReplaceInterface
+用在代理中，待看
+
+### ParameterHandler
+只有一个默认实现
+-   DefaultParameterHandler
+
+### DefaultMapResultHandler
+
+### DefaultResultContext
+
+### DefaultResultHandler
+
+### ResultMapException
+
+### ResultSetHandler
+-   DefaultResultSetHandler
+
+### PrimitiveTypes
+
+### ResultSetWrapper
+
+
+
+
 ### Executor
 一个`ResultHandler`字段。包含更新、查询、事务、缓存处理、延迟加载。
+
+### BaseExecutor
+接口Executor的抽象实现。实现了延迟加载等所有逻辑留下具体执行的抽象方法，doUpdate、doFlushStatement、doQuery、doQueryCursor。大部分字段是protected。
+该接口共有4个实现，分别为
+-   SimpleExecutor
+-   BatchExecutor
+-   ReuseExecutor
+-   ClosedExecutor
 
 ### ResultExtractor
 只有一个公共方法```Object extractObjectFromList(List<Object> list, Class<?> targetType)```作用为将```list```转化为```targetType```指定类型。判断过程如下：
