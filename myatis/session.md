@@ -12,6 +12,7 @@
 -   FAILING 抛出SqlSessionExecption异常
 ### Congiguration
 mybaits配置项都在里面、大量的类型别名注册。
+buildAllStatement
 ### ExecutorType
 枚举，SIMPLE、REUSE、BATCH
 ### LocalCacheScope
