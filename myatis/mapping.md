@@ -37,3 +37,5 @@ sql命令枚举
 一个Statement类型枚举
 ### VendorDatabaseIdProvider
 实现了DatabaseIdProvider接口，默认返回数据库的产品名字。当指定了Properties，则用数据库产品名字作为key查询对应的值并返回，若没找到侧返回null。
+### MappedStatement
+没有提供公共的构造方法，只提供了一个内部静态类builder。build构造方法入参有Configuration、id、SqlSource、SqlCommandType，同时提供了其余10多个属性配置的便捷方法。

@@ -3,5 +3,7 @@
 ### MapperMethod
 封装了SqlCommand和MethodSignature两个属性。只有两个公共方法，一个入参为class、method、configuration的构造方法，一个入参为SqlSession、Object[]的execute方法。根据SqlCommand的不同，通过MethodSignature完成数据库查询。
 #### SqlCommand
-statementId=className+methodName
-
+statementId=className+'.'+methodName
+先根据statementId在Configuration里查找MappedStatement，如果Configuration里不存在statementId对应MappedStatement，这时若类类型和方法的所属类型相同则直接返回null，反之则说明这个方法属于父类，接下来会已父类为入参递归调用到找到MappedStatement为止，最终找到则返回仍未找到则返回null。这里前提是Configuration中已经存在了MappendStatement，也就是说MappeerMethod创建之前Configuration中就完成MappedStatement的加载。
+### MethodSignature
+    
