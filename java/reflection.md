@@ -27,3 +27,5 @@ java8之前{ present：{ directly preset，inherited }}
 -   getActualTypeArguments
 -   getRawType
 -   getOwerType
+### AccessibleObject
+检查访问权限
