@@ -5,6 +5,9 @@ Guard的唯一实现类，是个抽象类。权限被表示成一个字符串，
 ## BasicPermission
 
 ### AccessController
+基于安全测试判断是否允许系统资源
+使代码获取特权
+获取上下文快照
 -   checkPermission(Permission)
 
 ### AccessControlContext
