@@ -8,12 +8,16 @@ Guard的唯一实现类，是个抽象类。权限被表示成一个字符串，
 基于安全测试判断是否允许系统资源
 使代码获取特权
 获取上下文快照
--   checkPermission(Permission)
+主要方法为doPrivilieged的多个重载方法和getContext
 
 ### AccessControlContext
 基于涵盖的上下文来判断对系统资源的访问权限。
 ### ProtectionDomain 
-封装一些类及这些类赋予的权限。
+    封装来加载器、代码源、被赋予的权限
+### Principal
+    代表一个实体
+### Subject
+    代表单一实体的关系信息，封装了principal、credential
 ### CodeSource
 封装代码库地址、证书链、签名器。
 #### implies

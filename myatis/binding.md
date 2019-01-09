@@ -6,4 +6,4 @@
 statementId=className+'.'+methodName
 先根据statementId在Configuration里查找MappedStatement，如果Configuration里不存在statementId对应MappedStatement，这时若类类型和方法的所属类型相同则直接返回null，反之则说明这个方法属于父类，接下来会已父类为入参递归调用到找到MappedStatement为止，最终找到则返回仍未找到则返回null。这里前提是Configuration中已经存在了MappendStatement，也就是说MappeerMethod创建之前Configuration中就完成MappedStatement的加载。
 ### MethodSignature
-    
+    ·
