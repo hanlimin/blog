@@ -28,4 +28,20 @@ statementId=className+'.'+methodName
 封装了多个关于返回值的属性信息、在方法参数中Bound索引、ResultHandler索引、ParamNameResolver。设定了参数中有且只有一个ResultHandler参数。主要方法是converArgsToSqlcommandParam，这个方法通过调用ParamNameResolver的getNameParams方法获取参数名字和参数的映射关系。如果参数上没有Param注解且只有一个参数就返回第一个参数，返回值就是一个对象；其它情况，根据注解设定名或默认名字对参数对象、通用名字对参数对象构成map返回。
 ### MapperProxy
 实现了InvocationHandler的JDK代理
-
+-   如果方法的声明类是Object则以当前对象为Targe调用方法
+-   如果方法是默认方法，则通过MethodHandle以入参proxy为Targe调用方法
+-   默认则从methodCache中获取method对应MapperMethod，如果没有则创建MapperMethod放入缓存并返回，最后调用MapperMethod.execute返回结果。
+### MapperProxyFactory
+MapperProxy的创建工厂，封装了MapperInterface、methodCacche。每次创建MapperProxy时mapperInterface和methodCache都是同样的。创建的MapperProxy实例使用的mapperInterface和methodCache所指向的对象都是相同的。
+### MapperRegistry
+封装了Configuration和一个Class对MapperProxyFactory的Map。管理Mapper类和对应MapperProxyFactory。
+-   getMapper
+    使用入参type找出对应的MapperProxyFactory并通过它创建MapperProxy返回。未找到MapperProxyFactory或工厂方法创建实例都可能抛出BindingException。
+-   hasMapper
+    判断指定Mapper类型是否在map中。
+-   addMapper
+    若指定的类型是接口且不在map的keys中时，创建MapperProxyFactory并添加到map中，通过MapperAnnnotationBuilder对type完成解析，如果解析失败则从map中移除type。
+-   getMappers
+    获取map的keyset
+-   addMappers
+    类中有两个重载方法。一个是两个参数的，入参packageName和type，获取指定包下所有type的子类，迭代子类集合调用addMapper。另一个方法入参就一个packageName，该方法只是调用第一个方法，第二入参为Object.class，也就是说添加包下所有类。
