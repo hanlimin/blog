@@ -18,6 +18,32 @@
 -   addMapperStatement 依据入参构造MappedStatement添加到Configuration并返回
 -   buildResultMapping 返回依据入参构造的ResultMapping
 -   getLanguageDriver 从Configuration中获取指定类型的LanguageDriver
+### ResultMapperResolver
+主要方法就一个resolve，方法逻辑只是调用MapperBuilderAssistant.addResultMap并返回调用结果。
+### SqlSourceBuilder
+继承自BaseBuilder。完成mapper.xml中的sql语句的解析
+-   parse 
+    构建出ParameterMappingTokenHandler handler
+    构建出GenericTokenParse parser
+    调用parser.parse解析出sql
+    返回使用configgration、sql，handler.getParameterMappings构建出StaticSqlSource
+#### ParameterMappingTokenHandler 
+继承自BaseBuider、实现了TokenHandler接口。
+构造入参Configuration、一个Class对象parameterType、一个string对Object的Map对象additionalParameters。
+-   getParametermappings 返回属性parameterMappings
+-   handleToken
+    调用buidParameterMapping，并将返回值放入属性parameterMappings中，返回字符串"?"
+-   buildParameterMapping
+    调用parseParameterMapping获取一个propertiesMap
+    从propertiesMap中获取property对应的value
+    通过判断获取property对应的类型propertyType
+    根据configuration、property、propertyType构建ParameterMapping.Builder builder
+    递归propertiesMap配置builder对应属性
+    返回builder构建出的ParameterMapping
+-   parseParameterMapping 一个私有方法，通过创建ParamterExpression返回一个Map<String, String>
+### StaticSqlSource
+实现了SqlSource接口。getBoundSql入参为参数对象，构建BoundSql并返回。
+    
 ## annotation
 注解处理
 ### MapperAnnotationBuilder
