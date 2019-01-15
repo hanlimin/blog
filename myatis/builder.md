@@ -48,4 +48,19 @@
 注解处理
 ### MapperAnnotationBuilder
 Mapper类注解处理。
+-   构造方法
+    构造入参为Confinguration和一个类类型对象type。
+    获取type的二进制名字并转为以'.java (best guess)'为后缀的文件名resource。
+    以configuraiton、resource为入参构造出MapperBuilderAssistant.
+    向sqlAnnotationTypes、sqlPrioviderAnnotationTypes添加相应的注解类型。
+-
+
+## xml
+### XMLMapperBuilder
+继承自BaseBuilder
+-   构造方法
+    入参包含XpathParser、Configuration、String类型的resource、Map类型的sqlFragments、可选的String类型的namespace。除了通过configuration、resource构造出MapperBuilderAssistant外，其余都是字段赋值。
+-   parse
+    唯一有在使用的公共方法，方法逻辑如下：
+    -   
 
