@@ -57,10 +57,24 @@ Mapper类注解处理。
 
 ## xml
 ### XMLMapperBuilder
-继承自BaseBuilder
+继承自BaseBuilder。主要完成了mapper.xml文件的解析，文件格式定义见mybatis-3-mapper.dtd
 -   构造方法
-    入参包含XpathParser、Configuration、String类型的resource、Map类型的sqlFragments、可选的String类型的namespace。除了通过configuration、resource构造出MapperBuilderAssistant外，其余都是字段赋值。
+    入参包含XpathParser、Configuration、String类型的resource、Map类型的sqlFragments、可选的String类型的namespace。除了通过configuration、resource构造出MapperBuilderAssistant外，其余都是字段赋值。resource指的是文件的完整路径。
 -   parse
     唯一有在使用的公共方法，方法逻辑如下：
-    -   
+-  configurationElement 
+    namespace必须有，并配置到builderAssistant
+    处理cache-ref和cache
+- cacheRefElement 处理cache-ref
+    向configuration添加mapper@namespace对cache@namespace
+     构建CacheRefResolver,调用resolveCacheRef方法，作用是调用MapperBuildAssisant的userCacheRef验证Configuration中对应Cache是存在的且把对应的Cache引用保存下来。如果未查找到对应Cache、查找过程中抛出异常，最后都会封装成IncompleteElementException抛出。
+        如果上步抛出IncompleteElementException，那么会把CacheRefResolver保存到Configuration的incompleteCacheRefs中。
+-   cacheElement
+    获取mapper/cache的所有属性和子节点，所有属性都有对应的默认值。使用这些属性和子节点通过MapperBuidlerAssistant.useNewCache保存引用和添加到Configuration.caches。
+-   parameterMapElement
+    处理所有/mapper/parameterMap节点。迭代所有节点，迭代单个节点下的所有parameter节点，通过MapperBuilderAssistant构建出ParameterMapping，将所有构建出的ParameterMapping添加到集合parameterMappings中，再把这个parameterMappings通过MapperBuilderAssistant的addParameterMap构建出ParameterMap。
+-   resultMapElements
+    处理所有/mapper/resultMap节点。迭代调用resultMapElement
+-   resultMapElement
+    
 
