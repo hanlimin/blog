@@ -56,18 +56,24 @@ Mapper类注解处理。
 -
 
 ## xml
+### XMLConfigBuilder
+继承自BaseBuilder，只有一个公共方法parse，方法内部通过parseConfiguration来完成config.xml配置文件的解析，通过一个布尔值parsed只允许解析一次。
+### XMLMapperEntityResolver
+实现了EntityResolver接口，用来获取mapper和config的dtd文件输入流InputSource。
 ### XMLMapperBuilder
 继承自BaseBuilder。主要完成了mapper.xml文件的解析，文件格式定义见mybatis-3-mapper.dtd
 -   构造方法
     入参包含XpathParser、Configuration、String类型的resource、Map类型的sqlFragments、可选的String类型的namespace。除了通过configuration、resource构造出MapperBuilderAssistant外，其余都是字段赋值。resource指的是文件的完整路径。
 -   parse
     唯一有在使用的公共方法，方法逻辑如下：
+    先判断指定的resource是否处理过，若还未处理则调用configurationElement进行处理，将resource添加到configuration的loadedResources中。
+    下一步对之前解析失败抛出IncompleteException的在Configuration保存的incompleteResultMaps、incompleteCacheRefs、incompleteStatements再次进行解析，再次进行解析，若成功则从map中移除，若失败再次抛出IncompleteElementException则直接忽略该异常异常。
 -  configurationElement 
-    namespace必须有，并配置到builderAssistant
-    处理cache-ref和cache
-- cacheRefElement 处理cache-ref
+    namespace必须有，并配置到builderAssistant。解析处理cache、cache、parameterMap、resultMap、sql、select、insert、update、delete等节点。
+- cacheRefElement
+    处理cache-ref节点
     向configuration添加mapper@namespace对cache@namespace
-     构建CacheRefResolver,调用resolveCacheRef方法，作用是调用MapperBuildAssisant的userCacheRef验证Configuration中对应Cache是存在的且把对应的Cache引用保存下来。如果未查找到对应Cache、查找过程中抛出异常，最后都会封装成IncompleteElementException抛出。
+    构建CacheRefResolver,调用resolveCacheRef方法，作用是调用MapperBuildAssisant的userCacheRef验证Configuration中对应Cache是存在的且把对应的Cache引用保存下来。如果未查找到对应Cache、查找过程中抛出异常，最后都会封装成IncompleteElementException抛出。
         如果上步抛出IncompleteElementException，那么会把CacheRefResolver保存到Configuration的incompleteCacheRefs中。
 -   cacheElement
     获取mapper/cache的所有属性和子节点，所有属性都有对应的默认值。使用这些属性和子节点通过MapperBuidlerAssistant.useNewCache保存引用和添加到Configuration.caches。
@@ -76,5 +82,28 @@ Mapper类注解处理。
 -   resultMapElements
     处理所有/mapper/resultMap节点。迭代调用resultMapElement
 -   resultMapElement
-    
+    首先从节点的所有子节点解析出ResultMapping，构造出ResultMapResolver，通过ResultMapResolver.resolve返回ResultMap，若出现异常则将ResultMapResolver添加到Configuration中并抛出异常。
+-   sqlElment
+    sql节点对应id，会先转成带有当前namespace的完整id。如果id作为key未在sqlFragments中，则将该sql节点放入sqlFragments中。
+-   buildStatementFormContext
+    将每个节点作为入参，构建XMLStatementBuilder，再调用XMLStatementBuilder.parseStatementNode方法完成解析，如果抛出IncompleteElementException，则调用configuration.addIncompleteStatement方法。
+
+### XMLStatementBuilder
+    处理select/update/delte/insert节点
+-   parseStatementNode
+    从节点中获取所有属性
+    通过XMLIncludeTransfer完成include节点的替换。
+    通过parseSlectKeyNodes完成selectKey节点的处理。
+    通过LangDriver创建出SqlSource。
+    拼出keyStatementid，从Configuration中获取对应KeyGenerator，如果没有对应的值就取用默认值。
+    通过MapperBuilderAssistent.addMappedStatement创建MappedStatement
+-   parseSelectKeyNodes
+    处理selectkey节点，迭代所有节点调用parseSelectKeyNode处理，最后移除这些节点。
+-   parseSelectkeyNode
+   解析处理节点的属性，通过LangDriver.createSqlSource构建出SqlSource。 通过MapperBuilderAssistant.addMapperStatement构建出MappedStatement，通过id从Configuration取出这个MappedStatement名为keyStatement，将keyStatment和executeBefore作为入参构建SelectKeyGenerator并添加到Configuration的keyGenerators中。
+### XMLIncludeTransformer
+    处理include节点
+-   applyIncludes
+    这个方法通过节点的不同状态递归调用完成指定节点的处理。
+    从include节点取出refid和子节点对用properties，通过refid从configuration的sqlFragments中获取对应Node toInclude，对toinClude应用properties，使用toInclude替换source节点
 
