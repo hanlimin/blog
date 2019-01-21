@@ -53,7 +53,8 @@ Mapper类注解处理。
     获取type的二进制名字并转为以'.java (best guess)'为后缀的文件名resource。
     以configuraiton、resource为入参构造出MapperBuilderAssistant.
     向sqlAnnotationTypes、sqlPrioviderAnnotationTypes添加相应的注解类型。
--
+-   parse
+    这个方法是惟一的公共方法，
 
 ## xml
 ### XMLConfigBuilder
