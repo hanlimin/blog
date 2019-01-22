@@ -54,7 +54,30 @@ Mapper类注解处理。
     以configuraiton、resource为入参构造出MapperBuilderAssistant.
     向sqlAnnotationTypes、sqlPrioviderAnnotationTypes添加相应的注解类型。
 -   parse
-    这个方法是惟一的公共方法，
+    这个方法是惟一的公共方法，首先会判断指定的resource是否已经处理过，未处理则处理。最后会调用parsePendingMethods方法，对Configuration的incompleteMethods再次进行解析。
+    处理过程为：
+    调用loadXmlResource，解析mapper xml 文件
+    将resource添加到Configuration中。
+    为MapperBuilderAssistant设置namespace。
+    调用parseCache解析可能有的缓存信息。
+    调用parseCacheRef解析缓存应用
+    迭代调用parseStatement处理类型所有非bridge方法，如果处理过程中抛出IncompleteElementException，则创建出MethodResolver添加到Configuration的incompleteMethods中。
+-   loadXmlResource
+    根据指定resource获取对应的InputStream，构造XMLMapperBuilder，再调用XMLMapperBuilder.parse完成mapper xml的解析。
+-   parseCache
+    如果指定类型上有CacheNamespace注解，获取相关属性，调用MapperBuilderAssistant的userNewCache方法完成对应缓存的创建。
+-   parseCacheRef
+    如果指定类型上有CacheNamespaceRef,获取相关属性，通过MapperBuilderAssistant的userCacheRef完成引用缓存的获取。如果获取过程中抛出IncompleteElementException，则添加到Configuration的incompleteCacheRef中。
+-   parseStatement
+    通过getSqlSourceFromAnnotations获取SqlSource。如果上步获取sqlSource不为null，则开始为创建MappedStatement获取去各个参数。首先获取方法上的Options注解，这个注解包含了大量配置信息，方法上注解分析出SqlCommandType枚举值，KeyGenerator、ResultMap等属性值而后调用MappedBuilderAssistant的addMappedStatement方法创建MappedStatement。
+-   getParameterType
+    获取指定方法参数中第一个非RowBounds和非ResultHandler的类的参数类型，若无参数则返回ParaMap类型。
+-   getLanguage
+    获取方法上的Lang注解，若存在注解则返回注解指定的LangDriver类型，若不存在则返回默认LanguageDriver类型。
+-   getSqlSourceFromAnnotations
+    从方法上获取第一个找到在SQL_ANNOTATION_TYPES、SQL_PRIVIDER_ANNOTATION_TYPES的两个注解。两个注解同时存在，存在则抛出BindingException，同时为空则返回null。如果存在的是sqlAnnotation(SELECT/UPDATE/INSERT/DELETE等注解)，则调用buildSqlSourceFromStrings返回SqlSource。如果存在的sqlPrioviderAnnotationType，则创建ProviderSqlSource返回。
+-   buildSqlSourceFromStrings
+    通过Language的createSqlSource方法将sql语句构建出SqlSource并返回。
 
 ## xml
 ### XMLConfigBuilder
@@ -108,3 +131,5 @@ Mapper类注解处理。
     这个方法通过节点的不同状态递归调用完成指定节点的处理。
     从include节点取出refid和子节点对用properties，通过refid从configuration的sqlFragments中获取对应Node toInclude，对toinClude应用properties，使用toInclude替换source节点
 
+### ResultMapResolver
+    封装了MapperBuilderAssistant和它的addResultMap方法入参。主要用于addResultMap的再次调用。
