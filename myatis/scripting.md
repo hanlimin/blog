@@ -2,6 +2,24 @@
 一个接口。一个createParameterHandler方法用于创建ParameterHandler。两个createSqlSource重载方法一个从String，另一个从XNode创建SqlSource。
 ### LanguageDriverRegistry
 内部有个Class对应LanguageDriver实例的一个map，用于管理LanguageDriver实例，可以添加获取，配置默认LanguageDriver或获取默认LanguageDriver。
+
+## defaults
+### RawSqlSource
+有两个重载的构造方法，区别在sql语句的来源，一个直接就是个字符串，另一个是个SqlNode。构造方法先有一个代表sql语句的字符串，再构造出一个SqlSourceBuilder，通过这个SqlSourceBuilder的parse方法获取SqlSource并赋值道类属性上。实现了SqlSource接口，只有一个方法getBoundSql，方法入参直接作为SQLSource的getBoundSql入参，返回BoundSql。类中还包含一个私有静态方法getSql，在语句来源为SqlNode时，通过构建DynamicContext完成动态语句的处理，返回处理后的语句。（动态处理部分存在疑问）
+### RawLanguageDriver
+继承自XMLLanguageDriver，不支持动态化内容。
+### DefaultParameterHandler
+实现了ParameterHandler接口，实现对preparedStatement的赋值。从BoundSql中获取ParameterMapping列表，迭代这个列表，对每一个ParameterMapping的propery找出对应value，从ParameterMapping获取TypeHandler和JdbcType，最后调用Typehandler的setParameter方法完成对PreparedStatement的参数赋值。
+
+## xmltags
+### DynamicContext
+ContextMap 内部静态类继承自HashMap，重写了get方法，方法首先判断是否包含指定key值，若存在则调用父类get方法，反之则通过封装的Metaobject获取对应的值。
+ConTextAccess 内部静态类实现了PropertyAccessor接口，把target对象转成Map进行取值和配置数值。
+### SqlNode
+一个接口，只有一个方法apply，入参为DynamicContext，返回值为布尔值。
+### ChooseSqlNode
+实现了SQLNode接口，封装了一个SqlNode列表ifSqlNode和一个SqlNode defaultSqlNode。方法apply，首先为迭代ifSqlNodes，对每个SqlNodo调用apply方法，若返回为true则方法就直接返回true。若上一步未返回且defualtSqlNode不为null，则调用defaultSqlNode的apply方法并直接返回true，否则返回false。
+
 ### XMLScriptBuilder
     继承自BaseBuilder，封装XNode、一个布尔值isDynamic、类型parameterType、一个string对NodeHandler的nodeHandlerMap。
     构造方法中调用了initNodeHandlerMap完成了对nodeHandlerMap的包括trim、where、set、foreach、if、choose、when、otherwise、bind等NodeHandler的添加。NodeHandler是一个内部私有接口，这些实现了mapper.xml中sql动态的语句处理。
