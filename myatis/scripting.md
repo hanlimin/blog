@@ -1,3 +1,7 @@
+### LanguageDriver
+一个接口。一个createParameterHandler方法用于创建ParameterHandler。两个createSqlSource重载方法一个从String，另一个从XNode创建SqlSource。
+### LanguageDriverRegistry
+内部有个Class对应LanguageDriver实例的一个map，用于管理LanguageDriver实例，可以添加获取，配置默认LanguageDriver或获取默认LanguageDriver。
 ### XMLScriptBuilder
     继承自BaseBuilder，封装XNode、一个布尔值isDynamic、类型parameterType、一个string对NodeHandler的nodeHandlerMap。
     构造方法中调用了initNodeHandlerMap完成了对nodeHandlerMap的包括trim、where、set、foreach、if、choose、when、otherwise、bind等NodeHandler的添加。NodeHandler是一个内部私有接口，这些实现了mapper.xml中sql动态的语句处理。

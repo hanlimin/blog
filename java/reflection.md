@@ -4,12 +4,12 @@ java8之前{ present：{ directly preset，inherited }}
 
 ### AnnotatedElement
 -   isAnnotationPresent
--   getAnnotation
--   getAnnotations
--   getAnnotationByType
--   getDeclaredAnnotation
--   getDeclaredAnnotationByType
--   getDeclaredAnnotations
+-   getAnnotation |preset|
+-   getAnnotations |preset|
+-   getAnnotationsByType |associted|
+-   getDeclaredAnnotation |directly present|
+-   getDeclaredAnnotationsByType |indirectly present| 
+-   getDeclaredAnnotations |directly present|
 ### GenericDeclaration
 泛型声明
 -   getTypeParamters

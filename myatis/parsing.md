@@ -1,9 +1,5 @@
 ### TokenHandler
 接口，只有一个方法handleToken，处理文本。
-### XNode
--   getValueBasedIdentifier
-nodeName([(@id|@value|@property])?，已指定节点为起点，向上至根节点为止，获取节点名字、按顺序获取id、value、property每个节点之间使用"_"相连，
-
 ### GenericTokenParser
     构造方法三个入参，2个字符串openToken、closeToken，一个TokenHandler实例，只是简单字段赋值。此外只有一个公共方法parse，主要作用是将入参字符串中，openToken和closeToken和它们之间的字符串作为key使用TokenHandler替换成对应的值，其它部分不变转换另一个字符串返回。
 ### PropertyParser
