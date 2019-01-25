@@ -38,6 +38,8 @@ PrefixedContext内部类继承自DynamicContext，使用组合模式，重写了
 实现了SqlNode接口，封装了一个SqlNode列表contents。apply方法迭代contents，对每个SqlNode都简单的调用对应apply，最后返回true。
 ### TrimSqlNode
 
+FilteredDynamicContext内部类继承自DynamicContext，使用组合模式
+
 ### DynamicSqlSource
 封装了Configuration和SqlNode，实现SqlSource接口。在getBoundSql方法中，先构造出DynamicContext context，context作为入参调用SqlNode的apply方法，构建出SqlSourceBuilder sqlSourceParser，调用sqlSourceParser的parse方法获取SqlSource对象，以parameterObject为入参调用sqlSource的getBoundSql方法获取BoundSql boundSql对象，最后将context的bindings 所有键值对添加到boundSql中并返回boundSql。
 
