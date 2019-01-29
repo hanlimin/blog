@@ -1,4 +1,15 @@
 # org.apache.ibaties.executor
+### Executor
+一个`ResultHandler`字段。包含更新、查询、事务、缓存处理、延迟加载。
+### BaseExecutor
+接口Executor的抽象实现,封装了Transaction、Executor、ConcurrentLinkedQueue、PerpetualCache localCache和localOutputParameterCache、Configuration。实现了延迟加载等所有逻辑留下具体执行的抽象方法，doUpdate、doFlushStatement、doQuery、doQueryCursor。大部分字段是protected。
+该接口共有4个实现，分别为
+-   SimpleExecutor
+-   BatchExecutor
+-   ReuseExecutor
+-   ClosedExecutor
+### SimpleExecutor
+继承自BaseExecutor，
 
 
 ### KeyGenerator
@@ -44,17 +55,6 @@
 
 
 
-
-### Executor
-一个`ResultHandler`字段。包含更新、查询、事务、缓存处理、延迟加载。
-
-### BaseExecutor
-接口Executor的抽象实现。实现了延迟加载等所有逻辑留下具体执行的抽象方法，doUpdate、doFlushStatement、doQuery、doQueryCursor。大部分字段是protected。
-该接口共有4个实现，分别为
--   SimpleExecutor
--   BatchExecutor
--   ReuseExecutor
--   ClosedExecutor
 
 ### ResultExtractor
 只有一个公共方法```Object extractObjectFromList(List<Object> list, Class<?> targetType)```作用为将```list```转化为```targetType```指定类型。判断过程如下：
