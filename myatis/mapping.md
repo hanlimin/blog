@@ -24,7 +24,8 @@ javaType、jdbcType、typeHandler，封装了java到jdbc的类型转化相关的
 ### ResultFlag
 枚举ID、CONSTRUCTOR
 ### ResultMap
-结果映射
+结果映射，一个简单类，封装了很多属性。resultMappings、idResultMappings、constructorResultMappings、propertyResultMappings等4种ResultMapping列表，mappedColumns、mappedProperties等两个字符串集合、字符串id、类型字段type、3个hasNestedResultMaps、hasNestedQueries、autoMappings布尔标识、最后一个Discriminator。有个方便构建的内部类Builder。
+
 ### ResultMapping
 结果映射，与ParaameterMapping相似封装了javaType、jdbcType、typeHandler，提供了一个构建器。
 ### ResultSetType

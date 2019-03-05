@@ -1,0 +1,36 @@
+### ParameterHandler
+一个接口只有两个方法，一个getParameterObject获取参数对象？setParameters方法入参是PreparedStatement作用是为入参PreparedStatement配置参数。
+###  DefaultParameterHandler
+实现了ParameterHandler接口，封装了TypeHandlerResgistry、MappedStatement、一个Obejct paraameterObejct、BoundSql、Configuration。构造参数只有MappedStatement、parameterObject、BoundSql。多个的属性是从MappedStatement中获取的。
+
+### ResultHandle<T>
+一个接口，只有一个方法handlerResult入参为ResultContext
+
+### DefaultResultHandler
+实现了ResultHandler接口，泛型类型就是Object，内部是个List列表，handlerResult则会从ResultContext中获取resultObject添加到这个列表中。
+
+### DefaultMapResultHandler
+实现了ResultHandler接口，除了原接口一个又添加添加了一个一个泛型，新添加的泛型K作为key的类型，原接口泛型V作为value类型的Map属性mappedResults。此外特殊的是还有来自构造方法的字符串属性mapKey。在handleResult方法中，首先调用ResultContext的getResultObject方法获取V类型的value，将value对象构建出MetaObject，再从这个MetaObject对象中获取mapKey对应的值key并强转成K类型，最后将key和vlaue添加到mappedResults中。
+
+### ResultSetHandler
+一个接口只有三个方法，分别处理普通Statemnet、返回Curor的查询、callable查询的结果集处理。
+
+### DefaultResultResultSetHandler
+封装了很多属性
+-   getFirstResultSet
+    私有方法，入参为Statement，通过Statement的getMoreResults和getUpdateCount获取第一个不为null的ResultSet，如果最后未获取到则返回null，有值则构建ResultSetWrapper封装ResultSet并返回。
+-   handleResultSets
+    首先调用getFirstResultSet获取到一个ResultSetWrapper。
+    验证ResultSetWapper不为null的情况下MappedStatement中的ResultMapp不为空。
+    -   
+-   validateResultMapsCount 
+   验证ResultMap数量有效。
+-   handleResultSet
+    入参ResultSetWrapper rsw、ResultMap resultMap、对象列表multipleResults、ResultMapping parentMapping。根据入参情况的不同有着不同的处理不过都是会调用handleRowValues方法，最后会调用closeResultSet方法关闭结果集。如果入参中parentMapping不为null，则会不传入ResultHandler调用handleRowValues。反则进入else判断。如果类属性resultHandler为null，则会构建出DefaultResultHandler实例同类型属性rowBounds作为入参调用handleRowValues，最后把DefaultResultHandler的ResultList添加到multipleResults中。反之直接调用handleRowValues方法传入类属性resultHandler和rowBounds。
+-   handleRowValues
+    根据ResultMap是否嵌套ResultMaps方法有两个逻辑分支。如果有则调用ensuresNoRowBounds和checkResultHandler做一些检查确保条件满足，最后调用handlerRowValuesForNestedResultMap。而在另一个分支就简单的调用handleRowValuesForSimpleResultMap。
+-   handleRowValuesForNestedResultMap
+    
+-   skipRows
+    处理RowBounds的分页在ResultSet的取值开始位置，如果ResultSet是TYPE_FORWARD_ONLY类型，则直接循环调用ResultSet.next()至RowBands指定的offset值的次数。而若不是，调用ResultSet的absolute方法。
+
