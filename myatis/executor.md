@@ -12,14 +12,6 @@
 继承自BaseExecutor，
 
 
-### KeyGenerator
-就两个方法-processBefore、processAfter，不知道用作什么
-该接口有2个实现，分别为
--   Jdbc3KeyGenerator
-    KeyGenerator一个实现，processBefore一个空方法什么也没做，
--   SelectKeyGenerator
--   NokeyGenerator
-
 ### ProxyFactory
 有两个实现
 -   JavassistProxyFactory
@@ -34,15 +26,9 @@
 ### WriteReplaceInterface
 用在代理中，待看
 
-### ParameterHandler
-只有一个默认实现
--   DefaultParameterHandler
-
-### DefaultMapResultHandler
 
 ### DefaultResultContext
 
-### DefaultResultHandler
 
 ### ResultMapException
 
