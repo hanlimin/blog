@@ -1,6 +1,5 @@
-# org.apache.ibatis.type
-
 ### Alias
+
 别名注解
 ### JdbcType
 封装了jdbc数据类型的枚举

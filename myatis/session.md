@@ -1,6 +1,5 @@
-# org.apache.ibaties.session
-
 ### AutoMappingBehavior
+
 枚举定义了3种自动映射行为。
 -   NONE 不自动映射
 -   PARITAL 无嵌套的才映射
@@ -17,10 +16,7 @@ buildAllStatement
 枚举，SIMPLE、REUSE、BATCH
 ### LocalCacheScope
 枚举，本地缓存作用域，SESSION、STATEMENT
-### ResultContext
-一个接口，定义4个方法，getResultObject获取结果对象，getResultCount获取结果数量、isStopped判断是否停止、stop停止
-### ResultHandler
-一个接口，就一个方法handleResult，入参是ResultContext
+
 ### SqlSession
 一个接口定义了增删改查、游标查询事务、获取连接、配置信息、会话缓存、获取指定类的映射等方法。
 
@@ -41,12 +37,6 @@ buildAllStatement
 
 ### RowBounds
 用于逻辑分页
-
-### ResultContext
-结果上下文。
-
-### ResultHandler
-只有一个方法，方法参数为```ResultContext```，对结果进行处理。
 
 ### LocalCacheScope
 一个枚举类，值分别为```SESSION```、```STATEMENT```表示两个缓存范围。
