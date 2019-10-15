@@ -13,11 +13,14 @@ Guard的唯一实现类，是个抽象类。权限被表示成一个字符串，
 ### AccessControlContext
 基于涵盖的上下文来判断对系统资源的访问权限。
 ### ProtectionDomain 
-    封装来加载器、代码源、被赋予的权限
+封装来加载器、代码源、被赋予的权限
+
 ### Principal
-    代表一个实体
+代表一个实体
+
 ### Subject
-    代表单一实体的关系信息，封装了principal、credential
+代表单一实体的关系信息，封装了principal、credential
+
 ### CodeSource
 封装代码库地址、证书链、签名器。
 #### implies
@@ -43,3 +46,7 @@ Guard的唯一实现类，是个抽象类。权限被表示成一个字符串，
 抽象类封装了证书类型和一个有序证书类表。
 ### Certificate
 证书抽象类。封装了证书类型、证书数据，提供了使用公钥验签的verify方法
+
+### SecurityConstants
+
+静态类封装了大量代表权限的静态常量

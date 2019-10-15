@@ -29,3 +29,6 @@ C_P 从history中召回上次一命令
 C_R history中搜索
 C_S 冻结stdin
 C_Q 回复stdin
+
+
+
