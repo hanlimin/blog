@@ -1,7 +1,8 @@
-##HashMap
+## HashMap
 hash计算 (h = (key == null) ? 0 : key.hashCode()) ^ (h >>> 16)
 索引计算 hash & (length - 1)
 允许key为null，
+
 ## put
 -   调用hash方法计算出可以的hash值，而后调用putVal
 -   若table为null，则说明是首次添加，调用resize方法完成table数组初始化。
