@@ -1,15 +1,18 @@
-Web服务：Tengine&Tomcat&OpenResty
-缓存：Redis/Memcache
-队列：RocketMQ
-数据存储：Mysql/MongoDB/Hadoop/Cassandra/ElasticSearch
-大数据储存：HBase、Hadoop
+Web服务：Tengine、Tomcat、OpenResty、nginx
+缓存：Redis、Memcache
+队列：RocketMQ、Kafaka
+SQL数据库：Mysql、
+
+NoSQL数据：MongoDB、Cassandra、HBase、Hadoop、
+
+搜索：ElasticSearch
 大数据计算：JStorm/Hive/MapReduce/MaxCompute
 分布式锁：Zookeeper
 框架：Spring/Struts/Ibatis
-服务化：SpringCloud/SpringBoot
+服务化：SpringCloud、SpringBoot、 dubbo 
 接口：EcmaScript、http 协议、RESTful、GraphQL 
 日志收集：Fluentd、Logstash、Flume、scribe
 容器化：docker、k8s
 数学基础：数学分析、线性代数、概率论、凸优化
 网络基础：TCP、
-深度学习：
+深度学习： TensorFlow 
