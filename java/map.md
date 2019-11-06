@@ -3,6 +3,10 @@ hash计算 (h = (key == null) ? 0 : key.hashCode()) ^ (h >>> 16)
 索引计算 hash & (length - 1)
 允许key为null，
 
+#### 序列化
+
+对于同一个key，在不同的JVM平台上计算出来的hash值可能不同，导致的结果就是，同一个hashmap反序列化之后和序列化之前不同，导致同一个key取出来的值不同。  HashMap不会将保存数据的数组序列化，而是将元素个数以及每个元素的key、value序列化。而在反序列化的时候，重新计算，填充hashmap 
+
 ## put
 -   调用hash方法计算出可以的hash值，而后调用putVal
 -   若table为null，则说明是首次添加，调用resize方法完成table数组初始化。
@@ -51,4 +55,15 @@ hash计算 h = System.identityHashCode(x); h = (h << 1) - (h << 8)
 
 ## EnumMap
 利用枚举数量固定且枚举自身就有一个序号，构建一个数组存值。
+
+| 类型            | key允许NULL | value允许为NULL | 线程安全 | 特性                                     | 冲突解决                                               | key比较                   |
+| --------------- | ----------- | --------------- | -------- | ---------------------------------------- | ------------------------------------------------------ | ------------------------- |
+| HashMap         | 是          | 是              | 否       |                                          | 链表；Java8：数组长度大于64且链表长于8，链表转成红黑树 | k == key && k.equals(key) |
+| HashTable       | 否          | 否              | 是       | 线程安全                                 | 链表                                                   | k == key && k.equals(key) |
+| LinkedHashMap   | 是          | 是              | 否       | 保存插入顺序，所有迭代依此顺序           | 链表                                                   | k == key && k.equals(key) |
+| WeakHashMap     | 是          | 是              | 否       | key使用弱引用保存，key被gc后删除对应节点 | 链表                                                   | k == key && k.equals(key) |
+| IdentityHashMap | 是          | 是              | 否       | 依据引用比对key值                        | 开放寻址法                                             | k == key                  |
+| EnumMap         | 否          | 是              | 否       |                                          | 无                                                     |                           |
+
+​			
 
