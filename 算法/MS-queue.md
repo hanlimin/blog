@@ -19,14 +19,14 @@ enqueue(Q: pointer to queue t, value: data type)
        /*先获得tail指针和最后一个节点的next*/
        tail = Q–>Tail
        next = tail.ptr–>next
-       /*判断如果刚才获得的tail没有改变（即：其它线程没有改变增加节点进而tail指针*/
+       /*判断如果刚才获得的tail没有改变，即其它线程没有改变增加节点*/
        if tail == Q–>Tail
          /*tail是否指向最后一个节点，如果没有变动，加入节点*/
            if next.ptr == NULL
                if CAS(&tail.ptr–>next, next, (node, next.count+1))
                   break
                endif
-           else /*tail没有指向最后一个节点，即：其它线程在末尾增加了节点*/
+           else /*tail没有指向最后一个节点，即其它线程在末尾增加了节点*/
                CAS(&Q–>Tail, tail, (next.ptr, tail.count+1))
            endif
         endif
