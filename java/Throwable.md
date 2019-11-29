@@ -1,2 +1,0 @@
-# Throwable
-4个公共构造方法都会调用```fillInStackTrace```获取当前线程栈帧信息。另一个有着3个参数的protected的构造方法，这个方法中writableStackTraace参数能够控制是否调用fillInStackTrace方法生成调用栈，enableSupperssion控制是否允许保存被压制的异常。控制是否生成调用栈用于消除生成调用栈的开销，在业务异常中可以用上。

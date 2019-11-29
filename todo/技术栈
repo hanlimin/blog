@@ -3,7 +3,7 @@ Web服务：Tengine、Tomcat、OpenResty、nginx
 队列：RocketMQ、Kafaka
 SQL数据库：Mysql、
 
-NoSQL数据：MongoDB、Cassandra、HBase、Hadoop、
+NoSQL数据：MongoDB、Cassandra、HBase、Hadoop、、Elasticsearch
 
 搜索：ElasticSearch
 大数据计算：JStorm/Hive/MapReduce/MaxCompute
