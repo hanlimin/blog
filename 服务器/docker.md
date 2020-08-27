@@ -35,3 +35,37 @@ docker容器默认情况下连接bridge网络，容器之间可以通过容器ip
 skip-host-cache
 
 skip-name-resolve
+
+**# Docker**
+
+
+
+**### 优点**
+
+\+   使用应用自身携带依赖环境
+
+\+   与虚拟虚拟机相比更加轻量的容器
+
+### docker-compose 
+
+#### linux安装
+
+```
+ curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+
+
+### 命令
+
+#### logs 
+
+指定容器名称查看对应日志
+
+- `-since` 指定开始时间
+- `-f` 实时日志
+- `-t` 显示日志产生日期
+- `-tail`指定从尾部数指定条数日志
+
+
+
