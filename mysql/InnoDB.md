@@ -2,7 +2,7 @@
 
 InnoDB架构图
 
-<img src="../imgs/innodb-architecture.png" />
+<img src="https://i.loli.net/2020/08/27/ZDnYpebSyN35HGU.png" />
 
 ### 储存逻辑划分
 

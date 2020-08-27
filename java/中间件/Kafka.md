@@ -338,7 +338,7 @@ Kafka是一个分布式的消息引擎。具有以下特征
 
 ## Kafka架构总览
 
-![Kafka系统架构](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/kafka%E6%9E%B6%E6%9E%84.png)
+![Kafka系统架构](https://i.loli.net/2020/08/27/oxLakTrFCPUmn5f.png)
 
 ## Topic
 
@@ -348,7 +348,7 @@ Kafka是一个分布式的消息引擎。具有以下特征
 
 每个分区都是一个 顺序的、不可变的消息队列， 并且可以持续的添加;分区中的消息都被分了一个序列号，称之为偏移量(offset)，在每个分区中此偏移量都是唯一的。
 producer在发布消息的时候，可以为每条消息指定Key，这样消息被发送到broker时，会根据分区算法把消息存储到对应的分区中（一个分区存储多个消息），如果分区规则设置的合理，那么所有的消息将会被均匀的分布到不同的分区中，这样就实现了负载均衡。
-![partition_info](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/partition.jpg)
+![partition_info](https://i.loli.net/2020/08/27/rQWdD6vBNPMfE1k.jpg)
 
 ## Broker
 
@@ -368,7 +368,7 @@ Consumer Group：同一个Consumer Group中的Consumers，Kafka将相应Topic中
 
 ## 发送消息的流程
 
-![partition_info](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/sendMsg.jpg)
+![partition_info](https://i.loli.net/2020/08/27/tkf5u2PCneEpdMW.jpg)
 **1.序列化消息&&.计算partition**
 根据key和value的配置对消息进行序列化,然后计算partition：
 ProducerRecord对象中如果指定了partition，就使用这个partition。否则根据key和topic的partition数目取余，如果key也没有的话就随机生成一个counter，使用这个counter来和partition数目取余。这个counter每次使用的时候递增。
@@ -424,7 +424,7 @@ public KafkaProducer(final Map<String, Object> configs) {
 }
 ```
 
-![Sender_io](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/SenderIO.jpg)
+![Sender_io](https://i.loli.net/2020/08/27/L45uigckvOXf7DY.jpg)
 
 终端查看TCP连接数：
 lsof -p portNum -np | grep TCP
@@ -433,7 +433,7 @@ lsof -p portNum -np | grep TCP
 
 ## poll消息
 
-![consumer-pool](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/consumerPoll.jpg)
+![consumer-pool](https://i.loli.net/2020/08/27/6yhNuMifHxqsTzF.jpg)
 
 - 消费者通过fetch线程拉消息（单线程）
 - 消费者通过心跳线程来与broker发送心跳。超时会认为挂掉
@@ -446,13 +446,13 @@ consumer的消息位移代表了当前group对topic-partition的消费进度，c
 在kafka0.8之前，位移信息存放在zookeeper上，由于zookeeper不适合高并发的读写，新版本Kafka把位移信息当成消息，发往__consumers_offsets 这个topic所在的broker，__consumers_offsets默认有50个分区。
 消息的key 是groupId+topic_partition,value 是offset.
 
-![consumerOffsetDat](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/consumerOffsetData.jpg)![consumerOffsetView](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/consumerOffsetView.jpg)
+![consumerOffsetDat](https://i.loli.net/2020/08/27/T5k1dburtNjaBpG.jpg)![consumerOffsetView](https://i.loli.net/2020/08/27/Tz34Ebm2jynJpXi.jpg)
 
 
 
 ## Kafka Group 状态
 
-![groupState](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/groupState.jpg)
+![groupState](https://i.loli.net/2020/08/27/qsgEmYxA1dp948z.jpg)
 
 - Empty：初始状态，Group 没有任何成员，如果所有的 offsets 都过期的话就会变成 Dead
 - PreparingRebalance：Group 正在准备进行 Rebalance
@@ -480,7 +480,7 @@ consumer的消息位移代表了当前group对topic-partition的消费进度，c
 
 使用join协议，表示有consumer 要加入到group中
 使用sync 协议，根据分配规则进行分配
-![reblance-join](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/reblance-join.jpg)![reblance-sync](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/reblance-sync.jpg)
+![reblance-join](https://i.loli.net/2020/08/27/FERGIStc4ygqsiX.jpg)![reblance-sync](https://i.loli.net/2020/08/27/B3N9Mkl1WaOqL5c.jpg)
 
 (上图图片摘自网络)
 
@@ -492,7 +492,7 @@ consumer的消息位移代表了当前group对topic-partition的消费进度，c
 
 **通过延迟进入PreparingRebalance状态减少reblance次数**
 
-![groupStateOfNewVersion](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/groupStateOfNewVersion.jpg)
+![groupStateOfNewVersion](https://i.loli.net/2020/08/27/tIeKJdoRDMPCBQj.jpg)
 
 新版本新增了group.initial.rebalance.delay.ms参数。空消费组接受到成员加入请求时，不立即转化到PreparingRebalance状态来开启reblance。当时间超过group.initial.rebalance.delay.ms后，再把group状态改为PreparingRebalance（开启reblance）。实现机制是在coordinator底层新增一个group状态：InitialReblance。假设此时有多个consumer陆续启动，那么group状态先转化为InitialReblance，待group.initial.rebalance.delay.ms时间后，再转换为PreparingRebalance（开启reblance）
 
@@ -504,7 +504,7 @@ Broker 是Kafka 集群中的节点。负责处理生产者发送过来的消息�
 
 ## broker zk注册
 
-![brokersInZk](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/brokersInZk.jpg)
+![brokersInZk](https://i.loli.net/2020/08/27/KHusb9dIBSqg4AY.jpg)
 
 ## broker消息存储
 
@@ -552,7 +552,7 @@ Leader会跟踪ISR，如果ISR中一个Follower宕机，或者落后太多，Lea
 broker Nodes In Zookeeper
 /brokers/topics/[topic]/partitions/[partition]/state 保存了topic-partition的leader和Isr等信息
 
-![partitionStateInZk](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/partitionStateInZk.jpg)
+![partitionStateInZk](https://i.loli.net/2020/08/27/I3vkWjgdxstcfNF.jpg)
 
 ## Controller负责broker故障检查&&故障转移（fail/recover）
 
@@ -565,7 +565,7 @@ broker Nodes In Zookeeper
 
 3.2 决定该Partition的新Leader和Isr。如果当前ISR中有至少一个Replica还幸存，则选择其中一个作为新Leader，新的ISR则包含当前ISR中所有幸存的Replica。否则选择该Partition中任意一个幸存的Replica作为新的Leader以及ISR（该场景下可能会有潜在的数据丢失）
 
-![electLeader](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/kafka/electLeader.jpg)
+![electLeader](https://i.loli.net/2020/08/27/CUgY8RScjdFObIx.jpg)
 3.3 更新Leader、ISR、leader_epoch、controller_epoch：写入/brokers/topics/[topic]/partitions/[partition]/state
 
 4. 直接通过RPC向set_p相关的Broker发送LeaderAndISRRequest命令。Controller可以在一个RPC操作中发送多个命令从而提高效率。
@@ -599,8 +599,4 @@ zero-copy
 增大producer数量
 ack配置
 batch
-
-如果喜欢我的文章，欢迎扫码关注
-
-![wechat](https://blog-article-resource.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_2f3803598393_258.jpg)
 

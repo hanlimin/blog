@@ -31,7 +31,7 @@
 创建一个bean定义，其实质是用该bean定义对应的类来创建真正实例的“配方”。把bean定义看成一个配方很有意义，它与class很类似，只根据一张“处方”就可以创建多个实例。不仅可以控制注入到对象中的各种依赖和配置值，还可以控制该对象的作用域。这样可以灵活选择所建对象的作用域，而不必在Java Class级定义作用域。Spring Framework支持五种作用域，分别阐述如下表。
 
 
-![](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-17/1188352.jpg)
+![](https://i.loli.net/2020/08/27/cxeQYVJ6X5k1sDH.png)
 
 五种作用域中，**request、session** 和 **global session** 三种作用域仅在基于web的应用中使用（不必关心你所采用的是什么web应用框架），只能用在基于 web 的 Spring ApplicationContext 环境。
 
@@ -317,11 +317,11 @@ public class CustomerBeanPostProcessor implements BeanPostProcessor {
 
 用图表示一下(图来源:http://www.jianshu.com/p/d00539babca5)：
 
-![](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-17/48376272.jpg)
+![](https://i.loli.net/2020/08/27/o38qVJiTL7NjeGf.png)
 
 与之比较类似的中文版本:
 
-![](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-17/5496407.jpg)
+![](https://i.loli.net/2020/08/27/tDCYdiAyWL3alGb.jpg)
 
 
 **其实很多时候我们并不会真的去实现上面说描述的那些接口，那么下面我们就除去那些接口，针对bean的单例和非单例来描述下bean的生命周期：**

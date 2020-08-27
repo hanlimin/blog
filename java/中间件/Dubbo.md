@@ -52,7 +52,7 @@ RPC（Remote Procedure Call）—远程过程调用，它是一种通过网络�
 
 [http://www.importnew.com/22003.html](http://www.importnew.com/22003.html)
 
-![RPC原理图](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-12-6/37345851.jpg)
+![RPC原理图](../../imgs/37345851.jpg)
 
 
 1. 服务消费方（client）调用以本地调用方式调用服务；
@@ -67,7 +67,7 @@ RPC（Remote Procedure Call）—远程过程调用，它是一种通过网络�
 
 下面再贴一个网上的时序图：
 
-![RPC原理时序图](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-12-6/32527396.jpg)
+![RPC原理时序图](../../imgs/Aj5ehXknSKVxrWb.png)
 
 **说了这么多，我们为什么要用 Dubbo 呢？**
 
@@ -75,7 +75,7 @@ RPC（Remote Procedure Call）—远程过程调用，它是一种通过网络�
 
 Dubbo 的诞生和 SOA 分布式架构的流行有着莫大的关系。SOA 面向服务的架构（Service Oriented Architecture），也就是把工程按照业务逻辑拆分成服务层、表现层两个工程。服务层中包含业务逻辑，只需要对外提供服务即可。表现层只需要处理和页面的交互，业务逻辑都是调用服务层的服务来实现。SOA架构中有两个主要角色：服务提供者（Provider）和服务使用者（Consumer）。
 
-![为什么要用 Dubbo](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-26/43050183.jpg)
+![为什么要用 Dubbo](https://i.loli.net/2020/08/27/e3TrQN6Y1a5Wdw2.jpg)
 
 **如果你要开发分布式程序，你也可以直接基于 HTTP 接口进行通信，但是为什么要用 Dubbo呢？**
 
@@ -104,7 +104,7 @@ Dubbo 的诞生和 SOA 分布式架构的流行有着莫大的关系。SOA 面�
 
 ### 2.1 Dubbo 的架构图解
 
-![Dubbo 架构](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-26/46816446.jpg)
+![Dubbo 架构](https://i.loli.net/2020/08/27/jE12kbaX4S7mYsy.png)
 
 **上述节点简单说明：**
 
@@ -141,7 +141,7 @@ Dubbo 的诞生和 SOA 分布式架构的流行有着莫大的关系。SOA 面�
 ### 2.2 Dubbo 工作原理
 
 
-![Dubbo 工作原理](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-9-26/64702923.jpg)
+![Dubbo 工作原理](https://i.loli.net/2020/08/27/jVCRsdiPNylAKIG.jpg)
 
 图中从下至上分为十层，各层均为单向依赖，右边的黑色箭头代表层之间的依赖关系，每一层都可以剥离上层被复用，其中，Service 和 Config 层为 API，其它各层均为 SPI。
 
@@ -183,7 +183,7 @@ Dubbo 的诞生和 SOA 分布式架构的流行有着莫大的关系。SOA 面�
 - **随机，按权重设置随机概率。**
 - 在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。
 
-![基于权重的随机负载均衡机制](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-12-7/77722327.jpg)
+![基于权重的随机负载均衡机制](https://i.loli.net/2020/08/27/CSIPVUdqGTYW1em.png)
 
 
 
@@ -192,7 +192,7 @@ Dubbo 的诞生和 SOA 分布式架构的流行有着莫大的关系。SOA 面�
 - 轮循，按公约后的权重设置轮循比率。
 - 存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。
 
-![基于权重的轮询负载均衡机制](http://my-blog-to-use.oss-cn-beijing.aliyuncs.com/18-12-7/97933247.jpg)
+![基于权重的轮询负载均衡机制](https://i.loli.net/2020/08/27/UICmA87BSbLT3RZ.png)
 
 ####  3.2.3 LeastActive LoadBalance
 
