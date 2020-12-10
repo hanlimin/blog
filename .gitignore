@@ -1,2 +1,16 @@
 *.swp
+*.jpg
+*.gif
+*.png
 /imgs
+
+### Hugo ###
+# Generated files by hugo
+/public/
+/resources/_gen/
+/themes/
+/static/images
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

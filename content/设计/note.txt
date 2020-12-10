@@ -1,0 +1,11 @@
+3ds Max
+NifSkope
+Outfit Studio
+Creation Kit
+xEdit
+GIMP
+TSR Workshop
+Photoshop
+S4S
+Blender
+VS Code
