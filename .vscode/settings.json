@@ -1,6 +1,4 @@
 {
-    "peacock.affectedElements": [
-        "activityBar",
-    ],
-    "editor.fontFamily": "'Fira Code Medium'"
+  "peacock.affectedElements": ["activityBar"],
+  "editor.fontFamily": "'Fira Code Medium'"
 }
