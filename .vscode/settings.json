@@ -1,4 +1,8 @@
 {
   "peacock.affectedElements": ["activityBar"],
-  "editor.fontFamily": "'Fira Code Medium'"
+  "editor.fontFamily": "'Fira Code Medium'",
+"python.autoComplete.extraPaths": [
+    "${workspaceFolder}\\bin"
+],
+"restructuredtext.confPath": "${workspaceFolder}\\docs"
 }
