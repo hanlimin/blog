@@ -1,10 +1,9 @@
-baseURL = "http://example.org/"
+baseURL = "http://limin.me"
+languageCode = "zh-cn"
 title = "我的博客"
 theme = "hyde-hyde"
 enableEmoji = true
 enableGitInfo = true
-
-languageCode = "zh-cn"
 
 paginate = 3
 hasCJKLanguage = true
