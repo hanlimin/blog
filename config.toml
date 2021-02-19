@@ -1,21 +1,80 @@
 baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "My New Hugo Site"
+title = "我的博客"
 theme = "hyde-hyde"
+enableEmoji = true
+enableGitInfo = true
 
+languageCode = "zh-cn"
+
+paginate = 3
+hasCJKLanguage = true
+summaryLength = 50
+
+
+# Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
+pygmentsCodefences = true
+pygmentsUseClasses = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsOptions = "linenos=table"
+
+[author]
+    name = "韩利民"
+
+[markup]
+    [markup.highlight]
+        codeFences = true
+        guessSyntax = false
+        hl_Lines = ""
+        lineNoStart = 1
+        lineNos = false
+        lineNumbersInTable = true
+        noClasses = true
+        style = "monokai"
+        tabWidth = 4
+
+[params]
+    favicon = "favicon.ico"
+    featured_image = "/sfo.jpg"
+
+    toc = true
+    photoswipe = true
+    bootcdn = false
+    mathjax = false
+    katex = false
+    contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+
+    changyanAppid = ""        # Changyan app id             # 畅言
+    changyanAppkey = ""       # Changyan app key
+    tencent_analytics = ""    # Tencent Analytics
+    baidu_push = false        # baidu push                  # 百度
+    baidu_analytics = ""      # Baidu Analytics
+    baidu_verification = ""   # Baidu Verification
+    google_verification = ""  # Google_Verification         # 谷歌
+
+    # Link custom CSS and JS assets
+    #   (relative to /static/css and /static/js respectively)
+    customCSS = []            # if ['custom.css'], load '/static/css/custom.css' file
+    customJS = []             # if ['custom.js'], load '/static/js/custom.js' file
+
+    # https://highlightjs.org
+    #highlightjs = true
+    #highlightjsstyle = "Monokai Sublime"
+    archive-paginate = 3
+
+    
 
 [params.social]
-    github = "<hanlimin>"
-    instagram = "<username>"
-    xing = "<username>"
-    linkedin = "<username>"
-    twitter = "<username>"
-    facebook = "<username>"
+    github = "hanlimin"
+    #instagram = "<username>"
+    #xing = "<username>"
+    #linkedin = "<username>"
+    #twitter = "<username>"
+    #facebook = "<username>"
     microblog = "<username>"
-    stackoverflow = "<username>"
-    telegram = "<username>"
+    #stackoverflow = "<username>"
+    #telegram = "<username>"
     # orcid = "<xxxx-xxxx-xxxx-xxxx>"
-    email = "your-email@example.com"
+    email = "hanlimin5@gmail.com"
     # gravatar = "your-email@example.com"
     # pgpkey = "<path-to-your-key-in-/static>"
 
